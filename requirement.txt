@@ -1,0 +1,14 @@
+pandas
+scikit-learn
+xgboost
+imbalanced-learn
+numpy
+tensorflow
+keras
+matplotlib
+opencv-python
+Pillow
+split-folders
+streamlit
+
+
