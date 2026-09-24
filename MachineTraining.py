@@ -61,7 +61,7 @@ def check(path,output):
     if a.isnull().sum().sum()>0:
         d+=1
     for i in a.columns:
-        if a[i].dtype=="object":
+        if not pd.api.types.is_numeric_dtype(a[i]):
             e+=1
             break
     return c,d,e,f,q,g
@@ -92,15 +92,15 @@ def null(path):
             if o[i]>0:
                 x=a[i].dtype
                 if x=="int64":
-                    a[i].fillna(a[i].mean(),inplace=True)
+                    a[i]=a[i].fillna(a[i].mean())
                     if i not in m:
                         m[i]=a[i].isnull().sum()
                 elif x=="float64":
-                    a[i].fillna(a[i].median(),inplace=True)
+                    a[i]=a[i].fillna(a[i].median())
                     if i not in m:
                         m[i]=a[i].isnull().sum()
-                elif x=="object":
-                    a[i].fillna(a[i].mode(),inplace=True)
+                elif not pd.api.types.is_numeric_dtype(a[i]):
+                    a[i]=a[i].fillna(a[i].mode()[0])
                     if i not in m:
                         m[i]=a[i].isnull().sum()
     n = a.isnull().sum()
@@ -454,15 +454,15 @@ def ttrain(path,output,p,o,u,y,t):
     elif p==zzz[1]:
         for i in q:
             if a[i].dtype=="int64":
-                a[i].fillna(a[i].mean(),inplace=True)
+                a[i]=a[i].fillna(a[i].mean())
             elif a[i].dtype=="float64":
-                a[i].fillna(a[i].median(),inplace=True)
-            elif a[i].dtype=="object":
-                a[i].fillna(a[i].mode(),inplace=True)
+                a[i]=a[i].fillna(a[i].median())
+            elif not pd.api.types.is_numeric_dtype(a[i]):
+                a[i]=a[i].fillna(a[i].mode()[0])
     e=[]
     l=LabelEncoder()
     for i in w:
-        if a[i].dtype=="object":
+        if not pd.api.types.is_numeric_dtype(a[i]):
             e.append(i)
     for i in e:
         a[i]=l.fit_transform(a[i])
