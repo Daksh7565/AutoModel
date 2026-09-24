@@ -29,7 +29,7 @@ It supports three kinds of data:
 AutoModel/
 ├── streamlit.py          # Streamlit UI
 ├── MachineTraining.py    # Preprocessing, model selection and training logic
-├── requirement.txt       # Python dependencies
+├── requirements.txt      # Python dependencies
 └── Dataset/              # Sample datasets
     ├── data.csv                              # Boston housing (regression, target: MEDV)
     └── healthcare-dataset-stroke-data.csv    # Stroke prediction (classification, target: stroke)
@@ -43,7 +43,7 @@ Requires Python 3.9–3.11 (TensorFlow does not support newer versions yet).
 cd C:\Users\Dell\Desktop\Project\AutoModel
 python -m venv venv
 .\venv\Scripts\Activate.ps1
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ## Run
@@ -63,8 +63,9 @@ The app opens at http://localhost:8501.
 
 ## Known limitations
 
-- **Hard-coded paths.** `MachineTraining.py` reads CSVs from `C:\Users\Dell\Desktop\Project\AutoModel\Dataset`. A file you upload must also exist in that folder with the same name. Image splits are written to `C:\Image<project name>`. To run the project on another machine, change these paths.
-- **NLP mode** reads the file path exactly as typed. The **BOW** option currently uses TF-IDF as well.
+- **Text mode is the web-ready feature.** Uploaded CSVs are saved into `Dataset/` (an upload with the same name as a sample file replaces it).
+- **Image mode** reads a local folder of images and writes its splits to `C:\Image<project name>`, so it only works on Windows and not from a web deployment.
+- **NLP mode** has no upload; it reads the file path exactly as typed. The **BOW** option currently uses TF-IDF as well.
 - **The Hybrid image model** appears in the dropdown but is not implemented yet.
 - **Manual-mode hyperparameters** are collected in the UI but not yet applied to the model.
 - **Image models** are pickled to `model.sav` before training, so the saved file holds untrained weights.

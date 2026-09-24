@@ -20,10 +20,15 @@ if selected_option==options[0]:
 elif selected_option==options[1]:
     uploaded_file = st.file_uploader("Upload your dataset (CSV file)", type=["csv"])
 
-    if uploaded_file is not None:
-        # Display file path-like name (Streamlit does not give full OS path)
-        a="/"+uploaded_file.name
-        st.write("File selected:", a)
+    if uploaded_file is None:
+        st.info("Upload a CSV file to begin.")
+        st.stop()
+
+    # Save the upload into the Dataset folder so MachineTraining can read it
+    a="/"+uploaded_file.name
+    with open(ML.DATASET_DIR + a, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    st.write("File selected:", a)
     if st.button("Information of dataset"):
         c=ML.info(a)
         st.write("the number of rows:",c[0])

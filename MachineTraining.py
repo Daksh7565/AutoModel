@@ -22,20 +22,21 @@ import cv2
 import os
 from tensorflow.keras import optimizers
 from PIL import Image
+DATASET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Dataset")
 import warnings
 warnings.filterwarnings('ignore')
 import splitfolders
 from keras import activations
 from keras import models, layers
 def info(path):
-    q=r'C:\Users\Dell\Desktop\Project\AutoModel\Dataset'+path
+    q=DATASET_DIR+path
     a=pd.read_csv(q)
     r,c=a.shape[0],a.shape[1]
     b=a.columns
     attributes=b
     return [r,c,attributes]
 def check(path,output):
-    p = r'C:\Users\Dell\Desktop\Project\AutoModel\Dataset'
+    p = DATASET_DIR
     o = p + path
     a = pd.read_csv(o)
     n=a[output]
@@ -65,7 +66,7 @@ def check(path,output):
             break
     return c,d,e,f,q,g
 def null(path):
-    q = r'C:\Users\Dell\Desktop\Project\AutoModel\Dataset' + path
+    q = DATASET_DIR + path
     a = pd.read_csv(q)
     b = a.shape
     w = a.columns
@@ -107,7 +108,7 @@ def null(path):
 
     return a
 def preproces(path,output):
-    q=r'C:\Users\Dell\Desktop\Project\AutoModel\Dataset'+path
+    q=DATASET_DIR+path
     a=pd.read_csv(q)
     b=a.shape
     w=a.columns
@@ -225,7 +226,6 @@ def train(path,output):
         #print("the final accuracy at test data is ",n*100)
         return [w,b[0],b[1],p,n*100,tu,model_filename,filename,f,a]
     else:
-        s,d,a,w,b=preproces(path,output)
         z,x,c,v= train_test_split(s,d,test_size=0.1)
         # print("Input is ",s)
         # print("the output is ",d)
@@ -435,7 +435,7 @@ def image(path,q,m):
 
 
 def ttrain(path,output,p,o,u,y,t):
-    q=r'C:\Users\Dell\Desktop\Project\AutoModel\Dataset'+path
+    q=DATASET_DIR+path
     a=pd.read_csv(q)
     b=a.shape
     w=a.columns
