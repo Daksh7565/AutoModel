@@ -6,9 +6,7 @@ numpy
 tensorflow
 keras
 matplotlib
-opencv-python
+opencv-python-headless
 Pillow
 split-folders
 streamlit
-
-
