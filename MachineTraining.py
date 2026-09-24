@@ -483,22 +483,22 @@ def ttrain(path,output,p,o,u,y,t):
         tu = {}
 
         def compare():
-            c = 0
-            f = 0
+            best_score = 0
+            best = 0
             for model in models:
                 cv_score = cross_val_score(model, f,g, cv=5)
                 mean = sum(cv_score) / len(cv_score)
                 mean = mean * 100
                 mean = round(mean, 2)
-                if c < mean:
-                    c = mean
-                    f = models.index(model)
+                if best_score < mean:
+                    best_score = mean
+                    best = models.index(model)
                 tu[model] = mean
                 # print('cross validation accuracies for this ', model, "=", cv_score)
                 # print("accuracy of the ", model, "=", mean, "%")
                 # print("<---------------------------------------------------------->")
-            p.append(models[f])
-            # print("the best model for the Given Dataset is ",models[f],"with the accuracy of ",c)
+            p.append(models[best])
+            # print("the best model for the Given Dataset is ",models[best],"with the accuracy of ",best_score)
 
         compare()
         mm= p[0]
@@ -507,9 +507,9 @@ def ttrain(path,output,p,o,u,y,t):
             pass
         m = mm.predict(ww)
         n = accuracy_score(rr, m)
-        return tu,mm,n
+        return mm,n,tu
     else:
-        tt=vvv[t[-1]]
+        tt=vvv[t[0]]
         models = [LogisticRegression(max_iter=10000), SVC(), RandomForestClassifier(random_state=0), XGBClassifier()]
         
         mm=models[tt]

@@ -169,6 +169,7 @@ elif selected_option==options[1]:
                         
         else:
             t=0
+            model_hper=[]
         if st.button("Predictive System"):
             with st.spinner("Training the model... ⏳"):
                 progress_bar = st.progress(0)
